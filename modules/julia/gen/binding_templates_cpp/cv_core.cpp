@@ -78,6 +78,13 @@ JLCXX_MODULE cv_wrap(jlcxx::Module &mod)
     mod.method("jlopencv_core_Mat_mutable_data", [](Mat m) {
         return make_tuple(m.data, m.type(), m.channels(), m.size[1], m.size[0], m.step[1], m.step[0]);
     });
+    mod.method("jlopencv_core_Mat_release", [](Mat& m) { m.release();});
+    mod.method("jlopencv_core_Mat_ref_count", [](Mat& m) { 
+        if (m.u == NULL)
+            return 0;
+        else
+            return m.u->refcount;
+    });
 
 
     mod.add_type<Parametric<TypeVar<1>>>("CxxScalar")

@@ -47,3 +47,7 @@ end
     A.data[I...] = x
     return A
 end
+
+function unsafe_release(m::Mat)
+    jlopencv_core_Mat_release(m.mat)
+end
